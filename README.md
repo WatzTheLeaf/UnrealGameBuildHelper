@@ -1,8 +1,11 @@
 # UnrealGameBuildHelper
 
-## Description
+## Use
 
-Work in progress ...
+Place executable in the engine (from source) root folder and run it.
+Usable for Windows platform only. Not tested on other platforms.
+
+Build and package can take some time to proceed. Please keep the tool open during the whole operation.
 
 ## Stack
 

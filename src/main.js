@@ -59,13 +59,12 @@ async function GetDetails(path){
 
     // Build project button behavior. Use rust backend to manage commands
     document.getElementById("build-uproject").addEventListener("click", ()=>{
-      console.log("D:/UFS/UnrealEngine-5.5/Engine/Build/BatchFiles/Build.bat " + title.toString() + " Shipping Win64 \"" + path + "\" -waitmutex")
       invoke("buildupj", {projectName: title.toString(), projectPath: path}).then((message) => alert(message));
     })
     
-    // Not implemented
+    // Package project button behavior. Use rust backend to manage commands
     document.getElementById("package-uproject").addEventListener("click", ()=>{
-      invoke("packageupj");
+      invoke("packageupj", {projectPath: path}).then((message) => alert(message));
     })
 
     return true

@@ -48,6 +48,25 @@ fn buildupj(project_name: String, project_path: String) -> String {
 }
 
 #[tauri::command]
-fn packageupj() {
-    println!("HelloWorld !");
+fn packageupj(project_path: String) -> String {
+    if !cfg!(target_os = "windows") {
+        return "Not available in Mac because it couldn't be tested".to_string();
+    }
+
+    let command = format!(
+        "./Engine/Build/BatchFiles/RunUAT.bat -ScriptsForProject={} BuildCookRun -project={} -noP4 -clientconfig=Shipping -serverconfig=Shipping -nocompileeditor -utf8output -platform=Win64 -build -cook -unversionedcookedcontent -stage -package -archive",
+        project_path,
+        project_path
+    );
+
+    let output = Command::new("powershell")
+        .args(["/C", command.as_str()])
+        .output()
+        .expect("Failed to package Unreal project.");
+
+    if output.status.success() {
+        "Package success".to_string()
+    } else {
+        format!("Package error: {}", output.status)
+    }
 }
